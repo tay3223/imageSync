@@ -44,7 +44,7 @@ func Push(imageName string) {
 	}
 
 	//docker image tag
-	imageNameTag, _ := imageTagRename(imageName)
+	imageNameTag := imageTagRename(imageName)
 	if err := cli.ImageTag(context.Background(), imageName, imageNameTag); err != nil {
 		return
 	}
@@ -70,32 +70,34 @@ func Push(imageName string) {
 
 }
 
-func imageTagRename(imageName string) (string, string) {
+func imageTagRename(imageName string) string {
 	//切割字符串
 	repoTagList := strings.Split(imageName, "/")
 
 	//取切割后数组的最后一个
 	repoTag := repoTagList[len(repoTagList)-1]
 
-	repoTagList2 := strings.Split(repoTag, ":")
-
-	repoTagList3 := repoTagList2[1:]
-
-	var repoTag1 string
-	for _, v := range repoTagList3 {
-		repoTag1 += string(v)
+	if !strings.Contains(repoTag, ":") {
+		repoTag += ":latest"
 	}
 
+	//repoTagList2 := strings.Split(repoTag, ":")
+	//repoTagList3 := repoTagList2[1:]
+	//var repoTag1 string
+	//for _, v := range repoTagList3 {
+	//	repoTag1 += string(v)
+	//}
 	//把:号替换为-号（n小于0时表示不限制替换的次数）
-	repoTag2 := strings.Replace(repoTag1, ":", "-", -1)
+	//repoTag2 := strings.Replace(repoTag1, ":", "-", -1)
 
 	//获取配置文件中的image_tag内容
 	imageTag := UserConfig.ImageTag
-
 	//把:号替换为空
 	imageTag2 := strings.Replace(imageTag, ":", "", -1)
 
 	//拼接新的imageTag内容
-	newImageTag := imageTag2 + ":" + repoTag2
-	return newImageTag, repoTag2
+	//newImageTag := imageTag2 + ":" + repoTag2
+	newImageTag := imageTag2 + "/" + repoTag
+
+	return newImageTag
 }

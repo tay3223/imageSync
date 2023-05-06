@@ -17,19 +17,15 @@ func main() {
 	//判断当前系统类型
 	switch runtime.GOOS {
 	case "linux":
-		/*
-		   这里没有判断linux上的docker服务是否运行，注释记录一下，后面有需要的话再追加上
-		*/
+		//TODO: 这里没有判断Linux上的docker服务是否运行，后期需要加上
 		fmt.Println("当前操作系统为：Linux")
-		//src.Pull(imageName)
+		src.Pull(imageName)
 		src.Push(imageName)
 
 	case "windows":
-		/*
-		   这里没有判断windows上的docker服务是否运行，注释记录一下，后面有需要的话再追加上
-		*/
+		//TODO: 这里没有判断Windows上的docker服务是否运行，后期需要加上
 		fmt.Println("当前操作系统为：Windows")
-		//src.Pull(imageName)
+		src.Pull(imageName)
 		src.Push(imageName)
 
 	case "darwin":

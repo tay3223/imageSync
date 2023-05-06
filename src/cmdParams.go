@@ -60,7 +60,7 @@ func NewCmdParams() string {
 	return ""
 }
 
-// pflg格式化输入
+// pflag格式化输入
 func wordSepNormalizeFunc(f *pflag.FlagSet, name string) pflag.NormalizedName {
 	from := []string{"-", "_"}
 	to := "."
@@ -73,7 +73,7 @@ func wordSepNormalizeFunc(f *pflag.FlagSet, name string) pflag.NormalizedName {
 // 命令行提示
 func myUsage() {
 	temp := `工具名称:  imageSync
-工具版本:  0.0.5
+工具版本:  0.0.6
 工具描述:  加速拉取海外的docker镜像，并上传到自己的镜像仓库中。
 详细文档:  https://github.com/imageSync/imageSync/blob/master/README.md
 
